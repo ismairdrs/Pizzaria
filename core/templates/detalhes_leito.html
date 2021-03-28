@@ -1,0 +1,123 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<header class="major">
+		<h2>Unidade: {{ leito.setor.unidade.nome }} - Setor: {{ leito.setor.nome }} - Leito: {{ leito.numero_leito }}</h2>
+</header>
+<body class="is-preload">
+	<div id="wrapper">
+		<div id="main">
+
+				<article id="beds" class="wrapper style3">
+					<p>Detalhes do leito {{ leito.numero_leito }}</p>
+					<p>{% if erros %} {{ erros }} {% endif %}</p>
+					{% if messages %}
+					  <ul class="messages">
+						{% for message in messages %}
+						  <li class="{{ message.tags }}">{{ message }}</li>
+						{% endfor %}
+					  </ul>
+					{% endif %}
+				</article>
+				<form method="post" action="{% url 'atualizar_leito' leito.id %}">
+					{% csrf_token %}
+					<div class="row gtr-uniform">
+						<div class="col-12">
+							<div class="col-12">
+								<select name="setor" id="setor">
+									<option value="{{ leito.setor.codigo }}">Setor: {{ leito.setor.nome }}
+																			- Unidade: {{ leito.setor.unidade.nome }}</option>
+								</select>
+							</div>
+						</div>
+						<div class="col-6 col-12-xsmall">
+							<input type="text" name="numero_leito" id="numero_leito" value="{{ leito.numero_leito }}" placeholder="{{ leito.numero_leito }}" readonly/>
+						</div>
+						<div class="col-12">
+							<div class="col-12">
+								<p>Status:
+									<select name="status" id="status">
+										{% for choice in choices_status %}
+											{% if leito.status == choice %}
+												<option value="{{ leito.status }}" selected>{{ leito.status }}</option>
+											{% else %}
+												<option value="{{ choice }}">{{ choice }}</option>
+											{% endif %}
+										{% endfor %}
+									</select>
+									</p>
+							</div>
+						</div>
+
+						<div class="col-6 col-12-small">
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="disfuncoes_organicas" name="disfuncoes_organicas" {% if leito.disfuncoes_organicas %} checked {% endif %} readonly>
+								<label for="disfuncoes_organicas">1 OU MAIS DISFUNÇÕES ORGÂNICAS</label>
+							</div><br>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="pos_operatorio" name="pos_operatorio" {% if leito.pos_operatorio %} checked {% endif %}>
+								<label for="pos_operatorio">PÓS OPERATÓRIO</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="pos_pcr" name="pos_pcr"  {% if leito.pos_pcr %} checked {% endif %}>
+								<label for="pos_pcr">PÓS PCR</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="sepse" name="sepse" {% if leito.sepse %} checked {% endif %}>
+								<label for="sepse">SEPSE</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="neurocritico" name="neurocritico" {% if leito.neurocritico %} checked {% endif %}>
+								<label for="neurocritico">NEUROCRÍTICO</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="angina" name="angina" {% if leito.angina %} checked {% endif %}>
+								<label for="angina">ANGINA INSTÁVEL DE ALTO RISCO</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="hemodialise" name="hemodialise"  {% if leito.hemodialise %} checked {% endif %}>
+								<label for="hemodialise">HEMODIÁLISE</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="droga_vasoativa" name="droga_vasoativa"  {% if leito.droga_vasoativa %} checked {% endif %}>
+								<label for="droga_vasoativa">DROGA VASOATIVA</label>
+							</div><div class="col-6 col-12-small">
+								<input type="checkbox" id="ventilacao_mecanica" name="ventilacao_mecanica" {% if leito.ventilacao_mecanica %} checked {% endif %}>
+								<label for="ventilacao_mecanica">VENTILAÇÃO MECÂNICA</label>
+							</div>
+						</div>
+						<div class="col-6 col-12-small">
+							<div class="col-12">
+								<p>SÍNDROME CORONARIANA AGUDA:
+								<select name="sindrome_coronariana_aguda" id="sindrome_coronariana_aguda">
+									{% if not leito.sindrome_coronariana_aguda %}
+										<option value="" selected>Selecionar ST</option>
+										<option value="COM_ST" >COM SUPRA DE ST</option>
+										<option value="SEM_ST" >SEM SUPRA DE ST</option>
+									{% elif leito.sindrome_coronariana_aguda == 'COM_ST' %}
+										<option value="" >Selecionar ST</option>
+										<option value="COM_ST" selected>COM SUPRA DE ST</option>
+										<option value="SEM_ST" >SEM SUPRA DE ST</option>
+									{% elif leito.sindrome_coronariana_aguda == 'SEM_ST' %}
+										<option value="" >Selecionar ST</option>
+										<option value="COM_ST" >COM SUPRA DE ST</option>
+										<option value="SEM_ST" selected>SEM SUPRA DE ST</option>
+									{% endif %}
+								</select></p>
+							</div>
+						</div>
+						</div>
+					{% if usuario_permitido %}
+						<div class="col-12">
+							<ul class="actions">
+								<li><input type="submit" value="Salvar" class="primary" /></li>
+								<li><input type="reset" value="Descartar Alterações" /></li>
+							</ul>
+						</div>
+					{% endif %}
+				</form>
+
+		</div>
+	</div>
+</body>
+{% endblock %}

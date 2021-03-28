@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_superuser %}
+<header class="major">
+		<h2>Usuários Cadastrados:</h2>
+</header>
+<body class="is-preload">
+	<div id="wrapper">
+		<div id="main">
+
+				<article id="beds" class="wrapper style3">
+
+
+					{% if messages %}
+					  <ul class="messages">
+						{% for message in messages %}
+						  <li class="{{ message.tags }}">{{ message }}</li>
+						{% endfor %}
+					  </ul>
+					{% endif %}
+				</article>
+				<ul>
+				{% for usuario in usuarios %}
+					<li><a href="{% url 'detalhe_usuario' usuario.id %}">{{ usuario.username }}</a></LI>
+				{% endfor %}
+				</ul>
+		</div>
+	</div>
+</body>
+{% else %}
+<ul class="messages">
+  <li class="warning">Usuário não tem permissão!</li>
+</ul>
+{% endif %}
+{% endblock %}

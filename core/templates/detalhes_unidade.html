@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div id="main">
+	<section>
+		{% if messages %}
+			  <ul class="messages">
+				{% for message in messages %}
+				  <li class="{{ message.tags }}">{{ message }}</li>
+				{% endfor %}
+			  </ul>
+			{% endif %}
+		{% if user.is_superuser %}
+		<div class="col-12">
+			<ul class="actions">
+				<li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+					Excluir Unidade
+					</button>
+				</li>
+			</ul>
+		</div>
+		{% endif %}
+		<header class="major">
+			<h2>Unidade {{ unidade.nome }}</h2>
+		</header>
+		<div class="col-12">
+			{% if setores %}
+				<strong>SETORES CADASTRADOS NA UNIDADE: </strong>
+			{% endif %}
+		</div>
+
+		<ul class="col-6-xsmall">
+			{% for setor in setores %}
+				<li class="list-group-item"><a href="{% url 'detalhe_setor' unidade.codigo setor.codigo %}">{{setor.codigo}} - {{ setor.nome }}</a></li>
+				{% empty %}
+					<li class="info">Nenhum setor encontrado!</li>
+			{% endfor %}
+		</ul>
+	</section>
+
+
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLabel">EXCLUIR UNIDADE</h5>
+				<button type="button" data-dismiss="modal" aria-label="Close">
+				<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+		<div class="modal-body">
+			<p>Deseja excluir a unidade: {{ unidade.nome }}?</p>
+		</div>
+			<div class="modal-footer">
+				<form method="post" action="{% url 'excluir_unidade' unidade.codigo %}" >
+					{% csrf_token %}
+					<button type="submit" class="primary">EXCLUIR</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %}

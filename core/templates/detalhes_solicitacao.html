@@ -1,0 +1,233 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<body class="is-preload">
+	<div id="wrapper">
+		<div id="main">
+
+				<article id="beds" class="wrapper style3">
+					<header>
+						<p>DETALHE DA SOLICITAÇÃO {{ solicitacao.id }}</p>
+
+						{% if messages %}
+						  <ul class="messages">
+							{% for message in messages %}
+							  <li class="{{ message.tags }}">{{ message }}</li>
+							{% endfor %}
+						  </ul>
+						{% endif %}
+					</header>
+				</article>
+				<form method="post" action="{% url 'atualizar_solicitacao' solicitacao.id %}" enctype="multipart/form-data">
+					{% csrf_token %}
+                    <div class="row gtr-uniform">
+				        <div class="col-6 col-12-xsmall">
+                            <input type="text" name="nome_paciente" id="nome_paciente" value="{{ solicitacao.nome_paciente }}" readonly/>
+                        </div>
+                        <div class="col-6 col-12-xsmall">
+                            <input type="text" name="nome_mae" id="nome_mae" value="{{ solicitacao.nome_mae_paciente }}" readonly/>
+                        </div>
+                        <div class="col-6 col-12-xsmall">
+                            <input type="text" name="data_nascimento" id="data_nascimento" value="{{ solicitacao.data_nascimento|date:'d/m/Y' }}" readonly/>
+                        </div>
+                        <div name="div_procedencia" class="row gtr-uniform">
+                                <p>PROCEDÊNCIA: </p>
+                            <div class="col-4 col-12-small">
+								{% if solicitacao.procedencia == "INTERNO" %}
+                                	<input type="radio"  name="procedencia" id="procedencia_interno" checked value="INTERNO">
+								{% else %}
+									<input type="radio"  name="procedencia" id="procedencia_interno"  value="INTERNO">
+								{% endif %}
+                                <label for="procedencia_interno" >INTERNO</label>
+                            </div>
+                            <div class="col-4 col-12-small">
+                                {% if solicitacao.procedencia == "EXTERNO" %}
+                                	<input type="radio"  name="procedencia" id="procedencia_externo" checked value="EXTERNO">
+								{% else %}
+									<input type="radio"  name="procedencia" id="procedencia_externo"  value="EXTERNO">
+								{% endif %}
+                                <label for="procedencia_externo">EXTERNO</label>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <p>DIAGNÓSTICO:<textarea name="diagnostico" id="diagnostico" placeholder="{{ solicitacao.diagnostico }}" rows="3"></textarea></p>
+                        </div>
+
+						<div class="row gtr-uniform">
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="disfuncoes_organicas" name="disfuncoes_organicas" {% if solicitacao.disfuncoes_organicas %} checked {% endif %}>
+								<label for="disfuncoes_organicas">1 OU MAIS DISFUNÇÕES ORGÂNICAS</label>
+							</div><br>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="pos_operatorio" name="pos_operatorio" {% if solicitacao.pos_operatorio %} checked {% endif %}>
+								<label for="pos_operatorio">PÓS OPERATÓRIO</label>
+							</div>
+                        </div>
+						<div class="row gtr-uniform">
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="pos_pcr" name="pos_pcr" {% if solicitacao.pos_pcr %} checked {% endif %}>
+								<label for="pos_pcr">PÓS - PCR</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="sepse" name="sepse" {% if solicitacao.sepse %} checked {% endif %}>
+								<label for="sepse">SEPSE</label>
+							</div>
+						</div>
+						<div class="row gtr-uniform">
+							<div class="col-12-small">
+								<input type="checkbox" id="neurocritico" name="neurocritico" {% if solicitacao.neurocritico %} checked {% endif %}>
+								<label for="neurocritico">NEUROCRÍTICO ( TCE GRAVE, TRM,
+									AVEI, AVCH, HSA, COMPLICAÇÕES RELACIONADAS A TUMORES DE SNC,
+									DOENÇAS NEUROMUSCULARES, CRISE CONVULSIVA, HIDROCEFALIA AGUDA,
+									TROMBOSE VENOSA CEREBRAL, COMA RELACIONADO A DOENÇA NEUROLÓGICA
+									PRIMÁRIA, INFECÇÕES DE SNC, MORTE ENCEFÁLICA – POTENCIAL DOADOR )
+								</label>
+							</div>
+						</div>
+
+						<div class="row gtr-uniform">
+                        	<div class="col-12">
+								<div class="col-6 col-12-small">
+									<div class="col-12">
+										<p>SÍNDROME CORONARIANA AGUDA:
+										<select name="sindrome_coronariana_aguda" id="sindrome_coronariana_aguda">
+											{% if not solicitacao.sindrome_coronariana_aguda %}
+												<option value="" selected>Selecionar ST</option>
+												<option value="COM_ST" >COM SUPRA DE ST</option>
+												<option value="SEM_ST" >SEM SUPRA DE ST</option>
+											{% elif solicitacao.sindrome_coronariana_aguda == 'COM_ST' %}
+												<option value="" >Selecionar ST</option>
+												<option value="COM_ST" selected>COM SUPRA DE ST</option>
+												<option value="SEM_ST" >SEM SUPRA DE ST</option>
+											{% elif solicitacao.sindrome_coronariana_aguda == 'SEM_ST' %}
+												<option value="" >Selecionar ST</option>
+												<option value="COM_ST" >COM SUPRA DE ST</option>
+												<option value="SEM_ST" selected>SEM SUPRA DE ST</option>
+											{% endif %}
+
+										</select>
+									</div>
+								</div>
+							<div class="col-12 col-12-small">
+								<input type="checkbox" id="angina" name="angina" {% if solicitacao.angina %} checked {% endif %}>
+								<label for="angina">ANGINA INSTÁVEL DE ALTO RISCO</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="hemodialise" name="hemodialise" {% if solicitacao.hemodialise %} checked {% endif %}>
+								<label for="hemodialise">INDICAÇÃO DE HEMODIÁLISE</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="droga_vasoativa" name="droga_vasoativa" {% if solicitacao.droga_vasoativa %} checked {% endif %}>
+								<label for="droga_vasoativa">DROGA VASOATIVA</label>
+							</div><div class="col-6 col-12-small">
+								<input type="checkbox" id="ventilacao_mecanica" name="ventilacao_mecanica" {% if solicitacao.ventilacao_mecanica %} checked {% endif %}>
+								<label for="ventilacao_mecanica">VENTILAÇÃO MECÂNICA /VNI</label>
+							</div>
+						</div>
+
+
+						</div>
+
+						</div>
+                        <div class="row gtr-uniform">
+
+                            <P>FR: <input type="number" step="0.01" name="fr" id="fr" value="{{ solicitacao.fr }}" placeholder="" /></P>
+                            <P>LACTATO: <input type="number" step="0.01" name="lactato" id="lactato" value="{{ solicitacao.lactato }}" placeholder="" /></P>
+                            <P>GLASGOW: <input type="number" step="0.01" name="glasgow" id="glasgow" value="{{ solicitacao.glasgow }}" placeholder="" /></P>
+                            <p>PA: <input type="number" step="0.01" name="pa" id="pa" value="{{ solicitacao.pa }}" placeholder="" /></p>
+                            <p>FC: <input type="number" step="0.01" name="fc" id="fc" value="{{ solicitacao.fc }}" placeholder="" /></p>
+                            <p>SaO2: <input type="number" step="0.01" name="sao2" id="sao2" value="{{ solicitacao.sao2 }}" placeholder="" /></p>
+                        </div>
+						<div class="col-6 col-12-xsmall">
+                            EXAMES DE IMAGEM:
+							<div id="images">
+								<input type="file" name="file[]"><br><br>
+							</div>
+							<input type="button" name="add_image" id="add_image" value="ADICIONAR">
+                        </div>
+                        <div class="col-6 col-12-xsmall">
+							<ul class="">
+								{% for arquivo in arquivos %}
+								<li><a href="{{ arquivo.file.url }}">{{ arquivo.file }}</a></li><br>
+								{% endfor %}
+							</ul>
+                        </div>
+
+                        <div class="col-6 col-12-xsmall">
+                            <p>OUTROS EXAMES:<input type="text" name="outros_exames" id="outros_exames" value="{{ solicitacao.outros_exames }}" placeholder="" /></p>
+                        </div>
+                        <div class="col-12">
+                            <p>RESUMO DA HISTÓRIA ATUAL DO PACIENTE:<textarea name="resumo" id="resumo" placeholder="{{ solicitacao.historico_paciente }}" rows="6"></textarea></p>
+                        </div>
+                        <div class="col-6 col-12-xsmall">
+                            <p>MÉDICO SOLICITANTE (NOME E CRM)<input type="text" name="medico_solicitante" id="medico_solicitante" value="{{ solicitacao.medico_solicitante }}" placeholder="" /></p>
+                        </div>
+						{% if not solicitacao.status %}
+							<div class="col-6 col-12-xsmall">
+								<p>LEITO DESTINADO<input type="text" name="leito_destinado" id="leito_destinado" value="{{ solicitacao.leito_destinado }}" placeholder="" readonly/></p>
+							</div>
+						{% endif %}
+					{% if solicitacao.status %}
+						<div class="col-12">
+							<label>LEITOS DISPONÍVEIS:</label>
+							<ul>
+								{% if leitos %}
+									{% for leito in leitos %}
+										<li class="list-group-leitos">
+											<input type="radio"  name="leito_disponivel" id="{{ leito.id }}"  value="{{ leito.id }}">
+											<label for="{{ leito.id }}">
+												UNIDADE: {{ leito.setor.unidade.nome }} - SETOR: {{ leito.setor.nome }} - LEITO: {{ leito.numero_leito }}
+											</label>
+										</li>
+									{% endfor %}
+								{% else %}
+								<li class="info"><label>NÃO EXISTEM LEITOS DISPONÍVEIS</label></li>
+
+								{% endif %}
+
+							</ul>
+						</div>
+					{% endif %}
+						<div class="col-12">
+							<ul class="actions">
+								{% if solicitacao.status %}
+								<li><input type="submit" value="Salvar Alterações" class="primary" /></li>
+								<li><input type="reset" value="Descartar Alterações" /></li>
+								<li><button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+									  Cancelar Solicitação
+									</button>
+								</li>
+								{% endif %}
+							</ul>
+						</div>
+				</form>
+
+		</div>
+	</div>
+
+	<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Cancelar Solicitação</h5>
+			<button type="button" data-dismiss="modal" aria-label="Close">
+			  <span aria-hidden="true">&times;</span>
+			</button>
+		  </div>
+		  <div class="modal-body">
+			<p>Confirmar cancelamento da solicitação?</p>
+		  </div>
+		  <div class="modal-footer">
+
+			<form method="post" action="{% url 'cancelar_solicitacao' solicitacao.id %}" >
+				{% csrf_token %}
+				<button type="submit" class="primary">Confirmar Cancelamento</button>
+			</form>
+		  </div>
+		</div>
+	  </div>
+	</div>
+</body>
+
+{% endblock %}

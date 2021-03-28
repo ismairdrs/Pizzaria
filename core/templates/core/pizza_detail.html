@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <article>
+        <img src="https://img.estadao.com.br/thumbs/640/resources/jpg/8/9/1569458498298.jpg" alt="foto da pizza" width="300" height="300">
+        <h2>{{ pizza.nome }} - R$: {{ pizza.preco }}</h2>
+        <h4>Ingredientes: </h4>
+        <ul>
+            {% for ingrediente in pizza.ingrediente.all %}
+            <li>
+                {{ ingrediente.nome }}
+            </li>
+            {% empty %}
+                <li>Pizza não tem ingredientes cadastrados!</li>
+            {% endfor %}
+        </ul>
+        <h4>Tamanho: {{ pizza.tamanho }}</h4>
+        <ul class="actions">
+            <li><a href="" class="button">Comprar</a></li>
+        </ul>
+    </article>
+{% endblock %}

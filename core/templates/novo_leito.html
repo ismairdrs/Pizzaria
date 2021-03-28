@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_superuser %}
+<body class="is-preload">
+	<div id="wrapper">
+		<div id="main">
+
+				<article id="beds" class="wrapper style3">
+					<header>
+						<p>CRIAR NOVO LEITO</p>
+						<p>{% if erros %} {{ erros }} {% endif %}</p>
+						{% if messages %}
+						  <ul class="messages">
+							{% for message in messages %}
+							  <li class="{{ message.tags }}">{{ message }}</li>
+							{% endfor %}
+						  </ul>
+						{% endif %}
+					</header>
+				</article>
+				<form method="post" action="{% url 'salvar_leito' %}">
+					{% csrf_token %}
+					<div class="row gtr-uniform">
+						<div class="col-12">
+								<p>Unidade:<select name="setor" id="setor">
+									{% for setor in setores %}
+										<option value="{{ setor.codigo }}">Setor: {{ setor.nome }}
+																			- Unidade: {{ setor.unidade.nome }}</option>
+									{% endfor %}
+								</select></p>
+						</div>
+						<div class="col-6 col-12-xsmall">
+							<p>Número do Leito:<input type="text" name="numero_leito" id="numero_leito" value="" placeholder="NÚMERO DO LEITO" /></p>
+						</div>
+						<div class="col-12">
+							<div class="col-12">
+								<p>Status:<select name="status" id="status">
+									<option value="DISPONIVEL">DISPONÍVEL</option>
+									<option value="RESERVADO">RESERVADO</option>
+									<option value="OCUPADO">OCUPADO</option>
+									<option value="ATIVO">ATIVO</option>
+									<option value="INATIVO">INATIVO</option>
+								</select></p>
+							</div>
+						</div>
+
+						<div class="col-6 col-12-small">
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="disfuncoes_organicas" name="disfuncoes_organicas">
+								<label for="disfuncoes_organicas">1 OU MAIS DISFUNÇÕES ORGÂNICAS</label>
+							</div><br>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="pos_operatorio" name="pos_operatorio" >
+								<label for="pos_operatorio">PÓS OPERATÓRIO</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="pos_pcr" name="pos_pcr" >
+								<label for="pos_pcr">PÓS PCR</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="sepse" name="sepse">
+								<label for="sepse">SEPSE</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="neurocritico" name="neurocritico">
+								<label for="neurocritico">NEUROCRÍTICO</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="angina" name="angina">
+								<label for="angina">ANGINA INSTÁVEL DE ALTO RISCO</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="hemodialise" name="hemodialise" >
+								<label for="hemodialise">HEMODIÁLISE</label>
+							</div>
+							<div class="col-6 col-12-small">
+								<input type="checkbox" id="droga_vasoativa" name="droga_vasoativa" >
+								<label for="droga_vasoativa">DROGA VASOATIVA</label>
+							</div><div class="col-6 col-12-small">
+								<input type="checkbox" id="ventilacao_mecanica" name="ventilacao_mecanica">
+								<label for="ventilacao_mecanica">VENTILAÇÃO MECÂNICA</label>
+							</div>
+						</div>
+						<div class="col-6 col-12-small">
+							<p>SÍNDROME CORONARIANA AGUDA:</p>
+
+							<div class="col-12">
+								<select name="sindrome_coronariana_aguda" id="sindrome_coronariana_aguda">
+									<option value="">Selecionar ST</option>
+									<option value="COM_ST">COM SUPRA DE ST</option>
+									<option value="SEM_ST">SEM SUPRA DE ST</option>
+								</select>
+							</div>
+						</div>
+						</div>
+
+
+
+						<div class="col-12">
+							<ul class="actions">
+								<li><input type="submit" value="Salvar" class="primary" /></li>
+								<li><input type="reset" value="Descartar Alterações" /></li>
+							</ul>
+						</div>
+					</div>
+				</form>
+
+	</div>
+</body>
+{% else %}
+<ul class="messages">
+  <li class="warning">Usuário não tem permissão!</li>
+</ul>
+{% endif %}
+{% endblock %}

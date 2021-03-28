@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+		<!-- UTIs -->
+<div id="main">
+
+		<section>
+			<header class="major">
+				{% if messages %}
+				  <ul class="messages">
+					{% for message in messages %}
+					  <li class="{{ message.tags }}">{{ message }}</li>
+					{% endfor %}
+				  </ul>
+				{% endif %}
+				<h2>Unidades cadastradas: </h2>
+			</header>
+			<div class="posts">
+				{% for unidade in unidades %}
+				<article>
+					<h3>{{ unidade.nome }} </h3>
+					<h4>Código da Unidade: {{ unidade.codigo }}</h4>
+					<ul class="actions">
+						<li><a href="{% url 'detalhe_unidade' unidade.codigo %}" class="button">Ver Detalhes</a></li>
+					</ul>
+				</article>
+				{% empty %}
+					<article>
+						<ul>
+							<li class="info">Nenhuma Unidade Encontrada!</li>
+						</ul>
+					</article>
+
+				{% endfor %}
+			</div>
+		</section>
+</div>
+{% endblock %}

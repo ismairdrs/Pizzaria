@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+{% if user.is_superuser %}
+	<article id="beds" class="wrapper style3">
+		<header>
+			<p>CRIAR NOVO SETOR</p>
+			{% if messages %}
+			  <ul class="messages">
+				{% for message in messages %}
+				  <li class="{{ message.tags }}">{{ message }}</li>
+				{% endfor %}
+			  </ul>
+			{% endif %}
+		</header>
+	</article>
+	<form method="post" action="{% url 'salvar_setor' %}">
+		{% csrf_token %}
+        <div class="row gtr-uniform">
+           <div class="col-12">
+
+					<p>UNIDADE:<select name="unidade" id="unidade">
+						{% for unidade in unidades %}
+							<option value="{{ unidade.codigo }}">{{ unidade }} - {{ unidade.codigo }}</option>
+						{% endfor %}
+					</select></p>
+
+			</div>
+			<div class="col-6 col-12-xsmall">
+                <input type="text" name="codigo" id="codigo" value="" placeholder="CÓDIGO DO SETOR" />
+            </div>
+            <div class="col-6 col-12-xsmall">
+                <input type="text" name="nome" id="nome" value="" placeholder="NOME DO SETOR" />
+            </div>
+			<div class="col-12">
+				<ul class="actions">
+					<li><input type="submit" value="Salvar" class="primary" /></li>
+					<li><input type="reset" value="Descartar Alterações" /></li>
+				</ul>
+			</div>
+		</div>
+	</form>
+{% else %}
+<ul class="messages">
+  <li class="warning">Usuário não tem permissão!</li>
+</ul>
+{% endif %}
+{% endblock %}
