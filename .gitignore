@@ -1,6 +1,6 @@
 /venv/
 .idea/
 db.sqlite3
-*/migrations/*
+**/00**
 
 **/__pycache__/**
