@@ -10,5 +10,5 @@ class PizzaSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Pizza
-        fields = ('id', 'nome', 'codigo', 'tamanho', 'ingrediente', 'preco')
+        fields = ('id', 'nome', 'codigo', 'ingrediente', 'preco')
 
