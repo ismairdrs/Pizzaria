@@ -7,6 +7,10 @@ from core.api.v1.views.ingrediente import IngredienteViewSet
 from core.api.v1.views.pizza import PizzaViewSet
 from core.api.v1.views.usuario import UserViewSet
 
+from rest_framework_simplejwt import views as jwt_views
+
+
+
 router = routers.DefaultRouter()
 router.register('pizza', PizzaViewSet, basename='pizza')
 router.register('ingrediente', IngredienteViewSet, basename='ingrediente')
@@ -14,4 +18,7 @@ router.register('usuario', UserViewSet, basename='usuario')
 
 urlpatterns = [
     url('', include(router.urls)),
+
+    path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
 ]
