@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="posts">
+{% for user in users %}
+    <article>
+        <h2>Nome: {{ user.first_name }} - {{ user.last_name}}</h2>
+        <h4>Username: {{ user.username }}</h4>
+        <h4>Email: {{ user.email }}</h4>
+    </article>
+{% empty %}
+    <li>Não temos Usuários cadastrados!</li>
+{% endfor %}
+</div>
+{% endblock %}

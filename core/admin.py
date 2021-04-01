@@ -5,7 +5,7 @@ from core.models import Pizza, Ingrediente
 
 @admin.register(Pizza)
 class PizzaAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'codigo', 'tamanho', 'preco')
+    list_display = ('nome', 'codigo', 'preco')
 
 
 @admin.register(Ingrediente)

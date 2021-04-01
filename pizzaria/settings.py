@@ -137,4 +137,8 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+
+AUTH_USER_MODEL = 'core.User'
+LOGIN_REDIRECT_URL = 'index'
+LOGOUT_REDIRECT_URL = 'index'
