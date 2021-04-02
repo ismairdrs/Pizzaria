@@ -13,6 +13,13 @@ Model: Pizza
 - descrição: TextField
 - tamanho: CharField
 
+Model: User
+- first_name: str
+- last_name: str
+- username: str
+- email: EmailField
+- password: PasswordField
+
 Obs: referência de modelo abstrata para simular a preparação de uma pizza na cozinha do restaurante
 Descriçao: seria necessário ter uma abstração do conjunto dentro do restaurante
 - status pedido: pedido chegou? já está sendo preparado? está assando? ficou pronta? pronta para retirada?
@@ -36,12 +43,6 @@ obs: talvez seja melhor abstrair informações sensiveis do usuário para essa a
 ```
 ## API Pedidos
 ```buildoutcfg
-Model: User
-- first_name: str
-- last_name: str
-- username: str
-- email: EmailField
-- password: PasswordField
 
 Model: Pedido
 - user_id: uuid
