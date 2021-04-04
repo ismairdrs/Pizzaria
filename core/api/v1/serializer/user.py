@@ -8,13 +8,12 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ('id', 'first_name', 'last_name', 'username', 'email')
+        fields = ('id', 'first_name', 'last_name', 'username', 'email', 'password')
+        extra_kwargs = {'password': {'write_only': True}}
 
-    def validate_password(self, value: str) -> str:
-        """
-        Hash value passed by user.
-
-        :param value: password of a user
-        :return: a hashed version of the password
-        """
-        return make_password(value)
+    def create(self, validated_data):
+        password = validated_data.pop('password')
+        usuario = User(**validated_data)
+        usuario.set_password(password)
+        usuario.save()
+        return usuario
