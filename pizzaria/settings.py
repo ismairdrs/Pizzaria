@@ -15,8 +15,8 @@ default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 
 DATABASES = { 'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
 
-ALLOWED_HOSTS = ['pizzaria-fasam.herokuapp.com', '127.0.0.1']
-
+#ALLOWED_HOSTS = ['pizzaria-fasam.herokuapp.com', '127.0.0.1', '*', 'localhost']
+ALLOWED_HOSTS = ['*', 'localhost:8000', '172.20.0.1']
 
 # Application definition
 
@@ -126,8 +126,11 @@ LOGOUT_REDIRECT_URL = 'index'
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework.authentication.SessionAuthentication',
+        #'rest_framework.authentication.BasicAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
+
 }
 
 

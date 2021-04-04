@@ -5,5 +5,5 @@ from .api import urls
 from .api.v1.views import PizzaListView, PizzaCreateView, PizzaDetailView
 
 urlpatterns = [
-    url('api/', include(urls)),
+    url('', include(urls)),
 ]

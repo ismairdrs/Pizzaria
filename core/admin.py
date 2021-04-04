@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from core.models import Pizza, Ingrediente
+from core.models import Pizza, Api
 
 
 @admin.register(Pizza)
@@ -8,6 +8,6 @@ class PizzaAdmin(admin.ModelAdmin):
     list_display = ('nome', 'codigo', 'preco')
 
 
-@admin.register(Ingrediente)
-class IngredienteAdmin(admin.ModelAdmin):
-    list_display = ('nome', 'descricao')
+@admin.register(Api)
+class ApiAdmin(admin.ModelAdmin):
+    pass
