@@ -9,7 +9,7 @@ from core.rabbitmq import producer
 class PizzaViewSet(viewsets.ModelViewSet):
     #queryset = Pizza.objects.all()
     serializer_class = PizzaSerializer
-    permission_classes = (IsAuthenticated, )
+
     def get_queryset(self):
 
         return Pizza.objects.all()
