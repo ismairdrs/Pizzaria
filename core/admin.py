@@ -12,4 +12,7 @@ class PizzaAdmin(admin.ModelAdmin):
 class ApiAdmin(admin.ModelAdmin):
     pass
 
-admin.register(User)
+
+@admin.register(User)
+class UserAdmin(admin.ModelAdmin):
+    pass
