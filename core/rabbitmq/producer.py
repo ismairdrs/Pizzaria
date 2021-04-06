@@ -22,11 +22,6 @@ class Producer():
         self.exchanges = []
 
     def produce(self, exchange, body, routing_key=''):
-        self.channel.basic_consume(
-            queue=self.callback_queue,
-            on_message_callback=self.on_response,
-            auto_ack=True)
-
         if exchange not in self.exchanges:
             self.channel.exchange_declare(exchange=exchange)
             self.exchanges.append(exchange)
