@@ -13,7 +13,7 @@ class Likes(APIView):
     def post(self, request):
         body = self.valida_dados(request)
         if body:
-            producer.produce(exchange='likes', body=body, routing_key='likes.create')
+            producer.produce(exchange='default', body=body, routing_key='celery')
             return Response({'Likes': 'like recebido'}, status=status.HTTP_202_ACCEPTED)
         else:
             return Response({'Likes': 'Dados inválidos'}, status=status.HTTP_400_BAD_REQUEST)

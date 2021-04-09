@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<class div="posts">
+  {% for pizza in pizza_list %}
+  <article>
+      <img src="https://adm.netcontroll.com.br/images/produtos_XMU/P15275C1.GIF?21201815" alt="pizza" width="200" height="200">
+      <h3>{{pizza.nome}}</h3>
+      <p>{{pizza.ingrediente}}</p>
+    <p><h5>R$: {{pizza.preco}}</h5></p>
+    <ul class="actions">
+      <li><a href="{% url 'detail_pizza' pizza.id %}" class="button">Detalhes</a></li>
+    </ul>
+
+  </article>
+  {% endfor %}
+</class>
+{% endblock %}

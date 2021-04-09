@@ -3,7 +3,6 @@ from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from core.api.v1.serializer.pizza import PizzaSerializer
 from core.models import Pizza
-from core.rabbitmq import producer
 
 
 class PizzaViewSet(viewsets.ModelViewSet):

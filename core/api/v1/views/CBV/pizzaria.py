@@ -12,7 +12,9 @@ class PizzaDetailView(generic.DetailView):
 
 class PizzaCreateView(generic.CreateView):
     model = Pizza
-    fields = ['nome', 'codigo', 'tamanho', 'ingrediente', 'preco']
+    fields = ['nome', 'codigo', 'ingrediente', 'preco', 'descricao']
+    success_url = ''
+
 
 class PizzaDeleteView(generic.DeleteView):
     model = Pizza

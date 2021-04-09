@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+    <section id="banner">
+        <div class="content">
+            <header>
+                <h1>{{ pizza.nome }}<br></h1>
+                <p>{{ pizza.ingrediente }}</p>
+                <p>{{ pizza.descricao }}</p>
+                <p>R$: {{ pizza.preco }}</p>
+            </header>
+            <p>{% lorem %}</p>
+            <ul class="actions">
+                <li><a href="#" class="button big">Comprar</a></li>
+            </ul>
+        </div>
+        <span class="image object">
+            <img src="https://adm.netcontroll.com.br/images/produtos_XMU/P15275C1.GIF?21201815" alt="">
+        </span>
+    </section>
+{% endblock %}
