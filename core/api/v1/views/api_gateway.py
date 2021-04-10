@@ -8,7 +8,7 @@ from core.models import Api
 
 
 class Gateway(APIView):
-    permission_classes = (IsAuthenticated, )
+    #permission_classes = (IsAuthenticated, )
 
     def operation(self, request):
         path = request.path_info.split('/')

@@ -2,6 +2,9 @@ from django.conf.urls import url, include
 from django.urls import path
 from rest_framework import routers
 
+from core.api.v1.views import PizzaListView, PizzaCreateView, PizzaDetailView
+from core.api.v1.views.CBV.likes import cadastrar_avaliacao
+from core.api.v1.views.CBV.user import UserCreateView, UserDetailView, UserDeleteView, UserUpdateView
 from core.api.v1.views.api_gateway import Gateway
 from core.api.v1.views.likes import Likes
 from core.api.v1.views.pizza import PizzaViewSet
@@ -17,6 +20,20 @@ router.register('usuario', UserViewSet, basename='usuario')
 
 
 urlpatterns = [
+    path('pizza/', PizzaListView.as_view(), name='list_pizza'),
+    path('nova-pizza/', PizzaCreateView.as_view(), name='new_pizza'),
+    path('detalhe-pizza/<int:pk>', PizzaDetailView.as_view(), name='detail_pizza'),
+
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('cadastro', UserCreateView.as_view(), name='new_user'),
+    path('usuario/<int:pk>', UserDetailView.as_view(), name='detail_user'),
+    path('usuario/<int:pk>/delete', UserDeleteView.as_view(), name='delete-user'),
+    path('usuario/<int:pk>/atualizar', UserUpdateView.as_view(), name='new_user'),
+
+    path('avaliacao/', cadastrar_avaliacao, name='avaliacao'),
+
+
+
     url('', include(router.urls)),
     path('token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
     path('refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),

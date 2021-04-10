@@ -36,7 +36,7 @@
 									<ul class="safadslinks">
 										<li><a href="http://127.0.0.1:8000/pizza/">Listar Pizzas</a></li>
 										{% if user.is_authenticated %}
-										<li><a href="{% url 'endereco' %}">Cadastrar Endereco</a></li>
+
 										<li><a href="{% url 'logout' %}">Log out</a></li>
 										{% else %}
 										<li><a href="{% url 'login' %}">Log in</a></li>
