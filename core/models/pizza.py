@@ -11,4 +11,6 @@ class Pizza(models.Model):
     ingrediente = models.TextField()
     preco = models.DecimalField(verbose_name='preco', decimal_places=2, max_digits=5)
     descricao = models.TextField(blank=True)
+    criado_em = models.DateTimeField(auto_now_add=True)
+    modificado_em = models.DateTimeField(auto_now=True)
 

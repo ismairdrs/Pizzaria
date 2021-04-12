@@ -11,5 +11,7 @@ class User(AbstractUser):
     phone_number = models.CharField('Phone', blank=False, max_length=15,)
     first_name = models.CharField(_('first name'), max_length=150, blank=False)
     last_name = models.CharField(_('last name'), max_length=150, blank=False)
+    criado_em = models.DateTimeField(auto_now_add=True)
+    modificado_em = models.DateTimeField(auto_now=True)
 
     REQUIRED_FIELDS = ['email', 'phone_number', 'first_name', 'last_name', 'password']

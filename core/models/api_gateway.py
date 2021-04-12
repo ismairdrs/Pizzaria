@@ -11,6 +11,8 @@ class Api(models.Model):
     request_path = models.CharField(max_length=255, unique=True)
     # endereço da api http://127.0.0.1:8000/
     upstream_url = models.CharField(max_length=255)
+    criado_em = models.DateTimeField(auto_now_add=True)
+    modificado_em = models.DateTimeField(auto_now=True)
 
     def send_request(self, request):
         headers = {}
