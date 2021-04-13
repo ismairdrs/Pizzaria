@@ -35,5 +35,7 @@ class Producer():
             )
         )
 
+    def close_connection(self):
+        self.channel.close()
 
-producer = Producer()
+#producer = Producer()
