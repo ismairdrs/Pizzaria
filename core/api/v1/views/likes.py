@@ -16,7 +16,7 @@ class Likes(APIView):
         body = self.valida_dados(request)
         if body:
             producer = Producer()
-            producer.produce(exchange='likes', body=body, routing_key='likes.create')
+            producer.produce(exchange='task_queue', body=body, routing_key='task_queue')
             producer.close_connection()
             return Response({'Likes': 'like recebido'}, status=status.HTTP_202_ACCEPTED)
         else:
