@@ -1,8 +1,10 @@
 import os
+from asyncio import Queue
 from datetime import timedelta
 from pathlib import Path
 
 from django.conf import settings
+from pika.spec import Exchange
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -15,8 +17,8 @@ default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 
 DATABASES = { 'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
 
-#ALLOWED_HOSTS = ['pizzaria-fasam.herokuapp.com', '127.0.0.1', '*', 'localhost']
-ALLOWED_HOSTS = ['*', 'localhost:8000', '172.20.0.1']
+ALLOWED_HOSTS = ['pizzaria-fasam.herokuapp.com', 'frontend-pizzaria.herokuapp.com']
+#ALLOWED_HOSTS = ['*', 'localhost:8000', '172.20.0.1']
 
 # Application definition
 
@@ -36,8 +38,8 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-        'rest_framework.authentication.SessionAuthentication',
-        'rest_framework.authentication.BasicAuthentication',
+       # 'rest_framework.authentication.SessionAuthentication',
+       # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 
@@ -54,6 +56,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
+
 ]
 
 ROOT_URLCONF = 'pizzaria.urls'

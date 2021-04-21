@@ -15,7 +15,6 @@ class Gateway(APIView):
         if len(path) < 2:
             return Response('Bad Request', status=status.HTTP_400_BAD_REQUEST)
 
-        #api_model = get_object_or_404(Api, name=path[1])
         api_model = Api.objects.filter(name=path[1])
         if api_model.count() != 1:
             return Response('Bad Request: Api não registrada', status=status.HTTP_400_BAD_REQUEST)

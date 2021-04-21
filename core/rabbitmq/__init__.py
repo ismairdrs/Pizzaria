@@ -1,4 +1,4 @@
 from .producer import Producer
-from .consumer import consumer
+from .consumer import Consumer
 
 
