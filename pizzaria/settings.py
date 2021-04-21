@@ -174,7 +174,4 @@ LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/pizza/'
 LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/pizza/'
 
 
-CORS_ALLOWED_ORIGINS = [
-    "http://127.0.0.1:4200",
-    "http://localhost:4200"
-]
+CORS_ALLOWED_ORIGINS = ['pizzaria-fasam.herokuapp.com', 'frontend-pizzaria.herokuapp.com', '*', 'localhost:8080', '189.50.46.131', 'frontend-pizzaria.herokuapp.com', 'localhost:39937', "10.1.39.212"]
