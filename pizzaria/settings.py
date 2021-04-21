@@ -17,7 +17,7 @@ default_dburl = 'sqlite:///' + os.path.join(BASE_DIR, 'db.sqlite3')
 
 DATABASES = { 'default': config('DATABASE_URL', default=default_dburl, cast=dburl), }
 
-ALLOWED_HOSTS = ['pizzaria-fasam.herokuapp.com', 'frontend-pizzaria.herokuapp.com', '*', 'localhost:8080', '189.50.46.131', 'frontend-pizzaria.herokuapp.com', 'localhost:39937']
+ALLOWED_HOSTS = ['pizzaria-fasam.herokuapp.com', 'frontend-pizzaria.herokuapp.com', '*', 'localhost:8080', '189.50.46.131', 'frontend-pizzaria.herokuapp.com', 'localhost:39937', "10.1.39.212"]
 #ALLOWED_HOSTS = ['*', 'localhost:8000', '172.20.0.1']
 
 # Application definition
