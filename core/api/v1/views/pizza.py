@@ -8,4 +8,4 @@ from core.models import Pizza
 class PizzaViewSet(viewsets.ModelViewSet):
     queryset = Pizza.objects.all()
     serializer_class = PizzaSerializer
-    permission_classes = (IsAuthenticated, IsAdminUser)
+    #permission_classes = (IsAuthenticated, IsAdminUser)

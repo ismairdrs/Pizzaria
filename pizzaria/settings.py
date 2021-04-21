@@ -38,8 +38,8 @@ INSTALLED_APPS = [
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
-       # 'rest_framework.authentication.SessionAuthentication',
-       # 'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
 
@@ -174,4 +174,16 @@ LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/pizza/'
 LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/pizza/'
 
 CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOWED_ORIGINS = ['https://pizzaria-fasam.herokuapp.com', 'https://frontend-pizzaria.herokuapp.com', ]
+CORS_ALLOWED_ORIGINS = ['https://pizzaria-fasam.herokuapp.com', 'https://frontend-pizzaria.herokuapp.com', 'http://localhost']
+
+CORS_ALLOW_HEADERS = (
+'accept',
+'accept-encoding',
+'authorization',
+'content-type',
+'dnt',
+'origin',
+'user-agent',
+'x-csrftoken',
+'x-requested-with',
+'Access-Control-Allow-Origin',)
