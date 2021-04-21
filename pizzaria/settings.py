@@ -173,5 +173,5 @@ SIMPLE_JWT = {
 LOGIN_REDIRECT_URL = 'http://127.0.0.1:8000/pizza/'
 LOGOUT_REDIRECT_URL = 'http://127.0.0.1:8000/pizza/'
 
-
-CORS_ALLOWED_ORIGINS = ['pizzaria-fasam.herokuapp.com', 'frontend-pizzaria.herokuapp.com', '*', 'localhost:8080', '189.50.46.131', 'frontend-pizzaria.herokuapp.com', 'localhost:39937', "10.1.39.212"]
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOWED_ORIGINS = ['https://pizzaria-fasam.herokuapp.com', 'https://frontend-pizzaria.herokuapp.com', ]
