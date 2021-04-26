@@ -8,7 +8,7 @@ from core.rabbitmq import Producer
 
 
 class Likes(APIView):
-    #permission_classes = (IsAuthenticated, )
+    permission_classes = (IsAuthenticated, )
 
     def post(self, request):
         body = self.valida_dados(request)
