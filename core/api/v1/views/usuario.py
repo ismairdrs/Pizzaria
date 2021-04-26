@@ -1,5 +1,5 @@
 from rest_framework.permissions import IsAuthenticated
-from rest_framework import generics, mixins
+from rest_framework import mixins, viewsets
 from core.api.v1.serializer.user import UserSerializer
 from core.models import User
 
@@ -8,7 +8,7 @@ class UserViewSet(mixins.CreateModelMixin,
                    mixins.RetrieveModelMixin,
                    mixins.UpdateModelMixin,
                    mixins.DestroyModelMixin,
-                   generics.GenericViewSet):
+                   viewsets.GenericViewSet):
 
     queryset = User.objects.all()
     serializer_class = UserSerializer
