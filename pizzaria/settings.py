@@ -1,10 +1,11 @@
 import os
-from asyncio import Queue
 from datetime import timedelta
 from pathlib import Path
 
 from django.conf import settings
-from pika.spec import Exchange
+
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -188,3 +189,13 @@ CORS_ALLOW_HEADERS = (
 'x-csrftoken',
 'x-requested-with',
 'Access-Control-Allow-Origin',)
+
+
+sentry_sdk.init(
+    dsn=config('SENTRY_DNS'),
+    integrations=[DjangoIntegration()],
+
+    traces_sample_rate=1.0,
+
+    send_default_pii=True
+)
