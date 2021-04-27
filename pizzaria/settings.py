@@ -199,3 +199,9 @@ sentry_sdk.init(
 
     send_default_pii=True
 )
+
+REST_FRAMEWORK = {
+    'DEFAULT_RENDERER_CLASSES': (
+        'rest_framework.renderers.JSONRenderer',
+    )
+}
