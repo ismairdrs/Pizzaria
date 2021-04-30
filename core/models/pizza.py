@@ -7,7 +7,6 @@ from django.db import models
 
 class Pizza(models.Model):
     nome = models.CharField(max_length=255)
-    codigo = models.CharField(max_length=20)
     ingrediente = models.TextField()
     preco = models.DecimalField(verbose_name='preco', decimal_places=2, max_digits=5)
     descricao = models.TextField(blank=True)
