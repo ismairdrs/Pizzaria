@@ -1,6 +1,7 @@
 from django.conf.urls import url, include
 from django.urls import path
 from rest_framework import routers
+from rest_framework_simplejwt import views as jwt_views
 
 from core.api.v1.views.api_gateway import Gateway
 from core.api.v1.views.likes import Likes
@@ -8,15 +9,9 @@ from core.api.v1.views.pizza import PizzaViewSet
 from core.api.v1.views.token import TokenObtainPairView
 from core.api.v1.views.usuario import UserViewSet
 
-from rest_framework_simplejwt import views as jwt_views
-
-
-
-from django.urls import path
 
 def trigger_error(request):
     division_by_zero = 1 / 0
-
 
 
 router = routers.DefaultRouter()

@@ -26,18 +26,13 @@ class Likes(APIView):
         id_pedido = request.data.get('id_pedido')
         nota = request.data.get('nota')
         comentario = request.data.get('comentario') or ''
-        if 0 <= nota <= 5:
-            True
-        else:
-            return False
-        if id_usuario and id_pizza and id_pedido and nota and comentario:
-            body = {
+        if 0 <= nota <= 5 and id_usuario and id_pizza and id_pedido and nota and comentario:
+            return {
                 "id_usuario": id_usuario,
                 "id_pizza": id_pizza,
                 "id_pedido": id_pedido,
                 "nota": nota,
                 "comentario": comentario,
             }
-            return body
-        else:
-            return False
+
+        return False
