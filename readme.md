@@ -1,24 +1,28 @@
-# ------ modelos ------
+# Projeto de arquitetura distribuída
+
+```buildoutcfg
+```
 ## API Pizzaria
 ```buildoutcfg
-Model: Ingrediente
-- nome: str
-- descrição: str
 
-Model: Pizza
-- nome: str
-- código: str
-- ingrediente (array de id de ingredientes): ArrayField
-- preço: DecimalField
-- descrição: TextField
-- tamanho: CharField
+Model: Api (Api Gateway)
+- name: CharField
+- request_path: CharField
+- upstream_url: CharField
+
 
 Model: User
-- first_name: str
-- last_name: str
-- username: str
+- id: UUIDField
 - email: EmailField
-- password: PasswordField
+- phone_number: CharField
+- first_name: CharField
+- last_name: CharField
+
+Model: Pizza
+- nome: CharField
+- ingrediente: TextField
+- preço: DecimalField
+- descrição: TextField
 ```
 ## API Endereço
 ```buildoutcfg
