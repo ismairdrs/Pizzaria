@@ -1,7 +1,23 @@
 # Projeto de arquitetura distribuída
 
-```buildoutcfg
-```
+Essa api tem como funcionalidade principal funcionar como um API Gateway. É uma interface entre o client (navegador) e 
+os serviços que estão disponíveis nos microsserviços. A autenticação das requisições é feita utilizando token JWT.
+
+O Api Gateway faz as requisições solicitadas sem revelar ao client qual o verdadeiro serviço está sendo consultado.
+
+Para utilizar o serviço deve-se criar um registro no modelo Api.
+Onde:
+- name: é o endpoint no qual o serviço irá reconhecer para onde deve enviar a requisição. Quando criar um registro com 
+  'endereco' o serviço sabe que quando chegar uma requisição com esse endpoint ele deve redirecionar a request para o 
+  serviço de endereço.
+  
+- request_path: '/endereco/' o serviço irá remover a string passada e irá enviar a request para o serviço solicitado 
+ sem o endpoint. Com request_path a requisição será enviada para www.minhaapiendereco.com/. Sem o request_path ele considera
+  todo o valor passado. A requisiçãio seria feita como www.minhaapiendereco.com/endereco/ indicando que está acessando o
+  endpoint endereco da api cadastrada.
+
+- upstream_url: é a url para onde deve ser enviada a requisição www.minhaapiendereco.com
+
 ## API Pizzaria
 ```buildoutcfg
 
@@ -27,37 +43,35 @@ Model: Pizza
 ## API Endereço
 ```buildoutcfg
 Model: Endereco
-- rua: str
-- complemento1: str
-- complemento2: str
-- cidade: str
-- estado: str
-- cep: str
-- ponto de referencia: str
-
-obs: talvez seja melhor abstrair informações sensiveis do usuário para essa api,
- e-mail e telefone podem ser campos registrados em uma tabela nessa api
+- id: UUIDField
+- usuario: UUIDField
+- rua: CharField
+- complemento1: CharField
+- complemento2: CharField
+- cidade: CharField
+- estado: CharField
+- cep: CharField
+- ponto de referencia: TextField
 ```
 ## API Pedidos
 ```buildoutcfg
 Model: Pedido
-- user_id: uuid
-- endereco_id: uuid
-- pizza_id: uuid
-- pedido_entregue: bool
+- id = UUIDField
+- usuario_id = UUIDField
+- endereco_id = UUIDField
+- pizza_id = IntegerField
+- pedido_entregue = BooleanField
+- criado_em = DateTimeField
+- modificado_em = DateTimeField
 ```
 
 ## API Likes
 ```buildoutcfg
 Model: Likes
-- pedido_id: uuid
-- nota: DecimalField
-- comentario: str
-```
-
-# --------- funcionalidades --------------
-## API Pizzaria
-```buildoutcfg
-Usuario: tudo que for relacionado ao usuário vai ser de responsabilidade dessa API, CRUD, autenticação
-
+- id = UUIDField
+- id_usuario = UUIDField
+- id_pizza = CharField
+- id_pedido = CharField
+- nota = IntegerField
+- comentario = TextField
 ```
