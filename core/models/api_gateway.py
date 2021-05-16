@@ -31,6 +31,7 @@ class Api(models.Model):
         if request.content_type and request.content_type.lower() == 'application/json':
             data = json.dumps(request.data)
             headers['content-type'] = request.content_type
+            headers['Authorization'] = request.auth.token
         else:
             data = request.data
 
