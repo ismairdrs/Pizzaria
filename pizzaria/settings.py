@@ -43,9 +43,9 @@ REST_FRAMEWORK = {
         #'rest_framework.authentication.BasicAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ],
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
+    #'DEFAULT_RENDERER_CLASSES': (
+    #    'rest_framework.renderers.JSONRenderer',
+    #)
 }
 
 
@@ -202,3 +202,10 @@ sentry_sdk.init(
     send_default_pii=True
 )
 
+CELERY_BROKER_URL = os.environ.get('CELERY_BROKER', "amqps://gjjkcnyh:MU-YKQRp20MMAP_RrOwvf-HhmMBBY1sS@hornet.rmq.cloudamqp.com/gjjkcnyh")
+
+# CELERY ROUTES
+CELERY_ROUTES = {
+    'core.tasks.likes': {'queue': 'likes'},
+    'core.tasks.endereco': {'queue': 'endereco'},
+}
